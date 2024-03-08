@@ -6,8 +6,7 @@ import Home from './home';
 const App = () => {
   return (
     <Routes>
-      <Route path='*' element={<NotFound />}>
-      </Route>
+      <Route path='*' element={<NotFound />} />
       <Route path='/' element={<Navigation />}>
         <Route index element={<Home />} />
       </Route>
