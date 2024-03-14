@@ -1,17 +1,13 @@
-import React from 'react';
 import Home from './pages/home';
 
-export const NAMES = {
-  homePage: 'HomePage',
+export type PageInfo = {
+  path: string;
+  component: React.FC;
 };
 
-export const PAGES = [
-  {
-    name: NAMES.homePage,
+export const PAGES: Record<string, PageInfo> = {
+  homePage: {
     path: '/',
+    component: Home,
   },
-];
-
-export const PAGES_COMPONENTS: Record<string, React.ReactNode> = {
-  [NAMES.homePage]: <Home />,
 };
