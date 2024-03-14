@@ -1,4 +1,4 @@
-import React, { FC, PropsWithChildren } from 'react';
+import { FC, PropsWithChildren } from 'react';
 import { MDXProvider as ReactMDXProvider } from '@mdx-js/react';
 
 const MDXProvider: FC<PropsWithChildren> = ({ children }) => {
