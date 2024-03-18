@@ -1,16 +1,36 @@
-import { Box, BoxProps, ThemeTypings, useStyleConfig } from '@chakra-ui/react';
+import {
+  Heading,
+  LinkBox,
+  LinkBoxProps,
+  LinkOverlay,
+  Text,
+  ThemeTypings,
+  useStyleConfig,
+} from '@chakra-ui/react';
 import { FC } from 'react';
+import { Link } from 'react-router-dom';
+import { PostsQuery } from '../gql/graphql';
 
-type PostProps = BoxProps & {
+type PostProps = LinkBoxProps & {
   variant?: ThemeTypings['components']['Post']['variants'];
   size?: ThemeTypings['components']['Post']['sizes'];
   children?: React.ReactNode;
+  post: NonNullable<PostsQuery['posts']>[number];
 };
 
-const Post: FC<PostProps> = ({ variant, size, ...props }) => {
+const Post: FC<PostProps> = ({ variant, size, post, children, ...props }) => {
   const styles = useStyleConfig('Post', { variant, size });
 
-  return <Box __css={styles} {...props} />;
+  return (
+    <LinkBox as='article' sx={styles} {...props}>
+      <Heading size='md' my='0'>
+        <LinkOverlay as={Link} to={`post/${post.id}`}>
+          {post.title}
+        </LinkOverlay>
+      </Heading>
+      <Text>{post.content}</Text>
+    </LinkBox>
+  );
 };
 
 export default Post;

@@ -84,7 +84,7 @@ const semanticTokens = defineStyle({
     },
 
     'chakra-body-bg': {
-      _light: `black`,
+      _light: `dark-blue.100`,
       _dark: `dark-blue.100`,
     },
   },

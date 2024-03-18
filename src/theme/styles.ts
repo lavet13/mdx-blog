@@ -8,8 +8,8 @@ const $chakraColorsScrollbarBorderColor = cssVar('chakra-colors-scrollbar-border
 const styles: Styles = {
   global: _ => ({
     '::selection': {
-      bg: 'section.text',
-      color: 'section.bg',
+      bg: 'section.bg',
+      color: 'section.text',
     },
     ':root': {
       '--shimmy-distance': '5',

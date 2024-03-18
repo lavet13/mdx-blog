@@ -9,6 +9,7 @@ export function useGraphQL<TResult, TVariables>(
   return useQuery({
     queryKey: [(document.definitions[0] as any).name.value, variables],
     queryFn: async ({ queryKey }) => {
+      // handling error?
       return request(
         import.meta.env.VITE_GRAPHQL_URI,
         document,

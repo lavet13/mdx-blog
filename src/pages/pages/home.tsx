@@ -9,8 +9,15 @@ import Post from '../../components/post';
 
 const Home: FC = () => {
   const path = PAGES.homePage['path'];
-  const { data } = usePosts();
-  console.log({ data });
+  const { data, error, isPending, isError } = usePosts();
+
+  if(isPending) {
+    return <span>Loading...</span>
+  }
+
+  if(isError) {
+    return <span>Error: {error.message}</span>
+  }
 
   return (
     <>
@@ -22,12 +29,7 @@ const Home: FC = () => {
       <Section>
         {/* <Blockquote variant='outline'>HELP?</Blockquote> */}
         <SimpleGrid minChildWidth="270px" spacing={'40px'}>
-          <Post>LOL</Post>
-          <Post>LOL</Post>
-          <Post>LOL</Post>
-          <Post>LOL</Post>
-          <Post>LOL</Post>
-          <Post>LOL</Post>
+          {data.posts.map(post => <Post key={post.id} post={post} />)}
         </SimpleGrid>
       </Section>
 
