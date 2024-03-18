@@ -7,6 +7,9 @@ import styles from './styles';
 import semanticTokens from './semantic-tokens';
 
 import Button from './components/button';
+import Section from './components/section';
+import Blockquote from './components/blockquote';
+import Post from './components/post';
 
 const config: ThemeConfig = {
   initialColorMode: 'system',
@@ -17,7 +20,7 @@ const theme = extendTheme({
   config,
   breakpoints,
   colors,
-  components: { Button },
+  components: { Button, Section, Blockquote, Post },
   fonts: {
     body: `"Refinery", "BlenderPro", ${base.fonts?.body}`,
     heading: `"Refinery", "BlenderPro", ${base.fonts?.heading}`,

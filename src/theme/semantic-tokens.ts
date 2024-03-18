@@ -36,14 +36,31 @@ const semanticTokens = defineStyle({
           default: 'pink.100',
         },
       },
+      'shadow-primary': `cyan.500`,
+      'shadow-secondary': `yellow.500`,
     },
 
-    'shadow-primary': `hsl(180, 90%, 50%)`,
-    'shadow-secondary': `hsl(60, 90%, 60%)`,
+    section: {
+      bg: {
+        default: 'yellow.500',
+        _dark: 'cyan.500',
+      },
+      text: {
+        default: 'black',
+        _dark: 'dark-blue.100',
+      },
+    },
+
+    borders: {
+      glitch: {
+        default: 'neon-green.500',
+        _dark: '#FFD700',
+      },
+    },
 
     'scrollbar-bg': {
-      _light: '#f9f002',
-      _dark: '#001F3F',
+      _light: 'yellow.500',
+      _dark: 'cyan.500',
     },
 
     'scrollbar-thumb-bg': {
@@ -62,19 +79,25 @@ const semanticTokens = defineStyle({
     },
 
     'chakra-body-text': {
-      _light: 'black',
-      _dark: 'white',
+      _light: '#f5ed00',
+      _dark: 'cyan.500',
     },
 
     'chakra-body-bg': {
-      _light: `linear-gradient(90deg, #f5ed00 70%, #e6de00 70%)`,
-      _dark: `linear-gradient(90deg, #192a56 70%, #14244b 70%)`,
+      _light: `black`,
+      _dark: `dark-blue.100`,
     },
   },
 
   shadows: {
-    'shadow-primary': `inset -3px 0 0 hsl(180, 90%, 50%)`,
-    'shadow-secondary': `hsl(60, 90%, 60%)`,
+    'cyber-btn-box-shadow': `inset -3px 0 0 hsl(180, 90%, 50%)`,
+    'cyber-btn-text-shadow': `
+      2px 2px var(--chakra-colors-button-shadow-primary),
+      -2px -2px var(--chakra-colors-button-shadow-secondary)
+    `,
+  },
+  borders: {
+    'border-30': `30px solid`,
   },
 });
 

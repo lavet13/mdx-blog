@@ -247,8 +247,8 @@ const CyberButton: FC<ButtonProps & { to?: string; }> = props => {
   });
   console.log({ styles });
 
-  const glitchAnimation = `${animation} 2s infinite`;
-  const activeGlitch = `${activeGlitchAnimation} infinite 1.5s cubic-bezier(0.15, 1.05, 0.76, 0.99) backwards`;
+  const glitchAnimation = `${animation} 2s forwards`;
+  const activeGlitch = `${activeGlitchAnimation} 1s cubic-bezier(0.15, 1.05, 0.76, 0.99) forwards`;
 
   return (
     <Button onClick={handleGoTo} role='group' __css={{ ...styles.outer }} {...rest}>
@@ -256,7 +256,7 @@ const CyberButton: FC<ButtonProps & { to?: string; }> = props => {
       <span aria-hidden>_</span>
       <Box
         aria-hidden
-        animation={glitchAnimation}
+        animation={activeGlitch}
         display={'none'}
         as='span'
         __css={{ ...styles.glitch }}

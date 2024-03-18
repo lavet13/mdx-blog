@@ -1,5 +1,4 @@
-import { SystemStyleFunction } from "@chakra-ui/react";
-import { mode } from '@chakra-ui/theme-tools';
+import { SystemStyleFunction } from '@chakra-ui/react';
 
 export const variantCyberButton: SystemStyleFunction = props => {
   const { colorScheme: c } = props;
@@ -36,7 +35,7 @@ export const variantCyberButton: SystemStyleFunction = props => {
     outline: 'transparent',
     textTransform: 'uppercase',
     border: 'none',
-    boxShadow: `shadow-primary`,
+    boxShadow: `cyber-btn-box-shadow`,
     textAlign: 'center',
 
     _before: {
@@ -110,8 +109,8 @@ export const variantCyberGlitchEffect: SystemStyleFunction = props => {
     left: `calc(var(--border) * -1)`,
     right: `calc(var(--border) * -1)`,
     bottom: `calc(var(--border) * -1)`,
-    background: 'shadow-primary',
-    textShadow: `2px 2px var(--chakra-colors-shadow-primary), -2px -2px var(--chakra-colors-shadow-secondary)`,
+    background: 'button.shadow-primary',
+    textShadow: `cyber-btn-text-shadow`,
     clipPath: `var(--clip)`,
 
     _groupHover: {
@@ -146,7 +145,7 @@ export const variantCyberGlitchEffect: SystemStyleFunction = props => {
   };
 };
 
-export const variantCyberTag: SystemStyleFunction = (props) => {
+export const variantCyberTag: SystemStyleFunction = (_) => {
   return {
     position: 'absolute',
     padding: `0px 4px`,
@@ -154,9 +153,9 @@ export const variantCyberTag: SystemStyleFunction = (props) => {
     lineHeight: 1,
     bottom: `-5%`,
     right: '5%',
-    color: mode('#000', '#fff')(props),
+    color: 'section.bg',
     fontSize: `7px`,
     fontFamily: 'BlenderPro',
     fontWeight: 900,
-  }
+  };
 };

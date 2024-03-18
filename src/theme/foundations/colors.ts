@@ -14,6 +14,18 @@ const colors = {
     300: `hsl(320, 100%, 40%)`,
     500: `hsl(320, 100%, 50%)`,
   },
+  'neon-green': {
+    500: '#8ae66e',
+  },
+  yellow: {
+    500: `#f5ed00`,
+  },
+  cyan: {
+    500: `#00ffff`,
+  },
+  'dark-blue': {
+    100: `#171a21`,
+  },
 };
 
 export default colors;
