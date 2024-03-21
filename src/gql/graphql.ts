@@ -101,6 +101,12 @@ export type MutationUpsertProfileArgs = {
   profileInput: ProfileInput;
 };
 
+export type PageInfo = {
+  __typename?: 'PageInfo';
+  endCursor?: Maybe<Scalars['Int']['output']>;
+  hasNextPage: Scalars['Boolean']['output'];
+};
+
 export type Post = {
   __typename?: 'Post';
   author: User;
@@ -120,6 +126,17 @@ export type PostPreviewArgs = {
   size?: InputMaybe<ContentLimit>;
 };
 
+export type PostsInput = {
+  cursor?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+};
+
+export type PostsResponse = {
+  __typename?: 'PostsResponse';
+  edges: Array<Post>;
+  pageInfo: PageInfo;
+};
+
 export type Profile = {
   __typename?: 'Profile';
   bio: Scalars['String']['output'];
@@ -137,7 +154,7 @@ export type Query = {
   authorComments: Array<Maybe<Comment>>;
   postById: Post;
   postComments: Array<Comment>;
-  posts: Array<Post>;
+  posts: PostsResponse;
   searchPA: Array<Maybe<SearchResultPa>>;
 };
 
@@ -163,7 +180,7 @@ export type QueryPostCommentsArgs = {
 
 
 export type QueryPostsArgs = {
-  filterNeedle?: InputMaybe<Scalars['String']['input']>;
+  input: PostsInput;
 };
 
 
@@ -202,11 +219,13 @@ export type PostByIdQueryVariables = Exact<{
 
 export type PostByIdQuery = { __typename?: 'Query', postById: { __typename?: 'Post', id: string, title: string, content: string, categories: Array<{ __typename?: 'Category', id: string, name: string }> } };
 
-export type PostsQueryVariables = Exact<{ [key: string]: never; }>;
+export type PostsQueryVariables = Exact<{
+  input: PostsInput;
+}>;
 
 
-export type PostsQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', id: string, title: string, content: string }> };
+export type PostsQuery = { __typename?: 'Query', posts: { __typename?: 'PostsResponse', edges: Array<{ __typename?: 'Post', id: string, title: string, preview: string }>, pageInfo: { __typename?: 'PageInfo', endCursor?: number | null, hasNextPage: boolean } } };
 
 
 export const PostByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"PostById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"postId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"postById"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"postId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"postId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"content"}},{"kind":"Field","name":{"kind":"Name","value":"categories"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]} as unknown as DocumentNode<PostByIdQuery, PostByIdQueryVariables>;
-export const PostsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Posts"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"posts"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"content"}}]}}]}}]} as unknown as DocumentNode<PostsQuery, PostsQueryVariables>;
+export const PostsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Posts"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"PostsInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"posts"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"preview"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"size"},"value":{"kind":"EnumValue","value":"MEDIUM"}}]}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"endCursor"}},{"kind":"Field","name":{"kind":"Name","value":"hasNextPage"}}]}}]}}]}}]} as unknown as DocumentNode<PostsQuery, PostsQueryVariables>;

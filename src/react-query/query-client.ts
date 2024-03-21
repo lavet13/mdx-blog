@@ -7,20 +7,20 @@ const queryClient = new QueryClient({
     queries: {
       staleTime: 1000 * 60 * 15,
       gcTime: 1000 * 60 * 60 * 24,
-      retry: 5,
+      retry: 2,
     }
   },
 });
 
-const persister = createSyncStoragePersister({
-  storage: window !== undefined ? (window as Window).localStorage : undefined,
-  retry: removeOldestQuery,
-});
-
-persistQueryClient({
-  queryClient,
-  persister,
-  maxAge: 1000 * 60 * 60 * 24,
-});
+// const persister = createSyncStoragePersister({
+//   storage: window !== undefined ? (window as Window).localStorage : undefined,
+//   retry: removeOldestQuery,
+// });
+//
+// persistQueryClient({
+//   queryClient,
+//   persister,
+//   maxAge: 1000 * 60 * 60 * 24,
+// });
 
 export default queryClient;

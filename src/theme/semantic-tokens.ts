@@ -46,7 +46,7 @@ const semanticTokens = defineStyle({
         _dark: 'cyan.500',
       },
       text: {
-        default: 'black',
+        default: 'dark-blue.100',
         _dark: 'dark-blue.100',
       },
     },

@@ -3,14 +3,13 @@ import { Styles } from '@chakra-ui/theme-tools';
 import './css-variables.css';
 import { cssVar } from '@chakra-ui/react';
 
-const $chakraColorsScrollbarBorderColor = cssVar('chakra-colors-scrollbar-border-color');
+const $chakraColorsScrollbarBorderColor = cssVar(
+  'chakra-colors-scrollbar-border-color'
+);
 
 const styles: Styles = {
   global: _ => ({
-    '::selection': {
-      bg: 'section.bg',
-      color: 'section.text',
-    },
+    html: { fontSize: { base: 'lg', sm: 'xl', '2xl': '2xl' } },
     ':root': {
       '--shimmy-distance': '5',
       '--border': '4px',

@@ -56,10 +56,6 @@ const Blockquote = defineStyleConfig({
 
   variants: {
     outline: {
-      '::selection': {
-        bg: 'section.bg',
-        color: 'section.text',
-      },
       border: 'none',
       borderLeft: 'none',
       borderBottom: 'none',
@@ -76,10 +72,6 @@ const Blockquote = defineStyleConfig({
     },
 
     filled: {
-      '::selection': {
-        bg: 'section.text',
-        color: 'section.bg',
-      },
       border: 'none',
       borderLeft: 'none',
       borderBottom: 'none',
@@ -118,10 +110,6 @@ const Blockquote = defineStyleConfig({
     },
 
     dotted: {
-      '::selection': {
-        bg: 'section.text',
-        color: 'section.bg',
-      },
       border: 'none',
       borderLeft: 'none',
       borderBottom: 'none',

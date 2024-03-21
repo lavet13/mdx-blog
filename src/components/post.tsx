@@ -20,6 +20,7 @@ type PostProps = LinkBoxProps & {
 
 const Post: FC<PostProps> = ({ variant, size, post, children, ...props }) => {
   const styles = useStyleConfig('Post', { variant, size });
+  console.log({ post });
 
   return (
     <LinkBox as='article' sx={styles} {...props}>
@@ -28,7 +29,7 @@ const Post: FC<PostProps> = ({ variant, size, post, children, ...props }) => {
           {post.title}
         </LinkOverlay>
       </Heading>
-      <Text>{post.content}</Text>
+      <Text>{post.preview}</Text>
     </LinkBox>
   );
 };

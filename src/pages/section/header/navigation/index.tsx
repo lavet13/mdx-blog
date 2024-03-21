@@ -6,7 +6,7 @@ const Navigation: FC = () => {
     <>
       <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem' }}>
         <NavLink to='/'>Home</NavLink>
-        <NavLink to='/test'>Test</NavLink>
+        <NavLink to='/login'>Log In</NavLink>
       </div>
     </>
   );

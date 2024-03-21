@@ -4,10 +4,6 @@ const $postClipPathThree = cssVar('post-clip-path-three');
 
 const Post = defineStyleConfig({
   baseStyle: {
-    '::selection': {
-      bg: 'section.bg',
-      color: 'section.text',
-    },
     position: 'relative',
     bg: 'section.text',
     color: 'section.bg',

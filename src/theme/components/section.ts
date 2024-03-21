@@ -12,7 +12,7 @@ const Section = defineStyleConfig({
     my: '-1px',
     bg: 'section.bg',
     color: 'section.text',
-    padding: ['60px 60px'],
+    padding: ['20px 50px 35px 50px', '60px 60px'],
 
     _before: {
       content: '" "',
@@ -40,29 +40,34 @@ const Section = defineStyleConfig({
       clipPath: $clipPathTwo.reference,
     },
 
-    _odd: {
+    _even: {
       _after: {
         transform: `scaleX(-1)`,
       },
     },
-    _even: {
-      "::selection": {
-        bg: 'section.bg',
-        color: 'section.text',
-      },
-      bg: 'section.text',
-      color: 'section.bg',
+    _odd: {
       _before: {
-        bg: 'section.bg',
         transform: `scaleX(-1)`,
-      },
-      _after: {
-        bg: 'section.bg',
       },
     },
   },
 
   variants: {
+    bothBlack: {
+      bg: 'section.text',
+      color: 'section.bg',
+      _before: {
+        height: 'full',
+        clipPath: $clipPathThree.reference,
+        bg: 'section.bg',
+        // transform: `scaleX(-1)`,
+      },
+      _after: {
+        height: 'full',
+        clipPath: $clipPathFour.reference,
+        bg: 'section.bg',
+      },
+    },
     both: {
       _before: {
         height: 'full',
@@ -71,6 +76,17 @@ const Section = defineStyleConfig({
       _after: {
         height: 'full',
         clipPath: $clipPathFour.reference,
+      },
+    },
+    black: {
+      bg: 'section.text',
+      color: 'section.bg',
+      _before: {
+        bg: 'section.bg',
+        // transform: `scaleX(-1)`,
+      },
+      _after: {
+        bg: 'section.bg',
       },
     },
   },

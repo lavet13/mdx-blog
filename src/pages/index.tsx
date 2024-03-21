@@ -1,4 +1,5 @@
 import Home from './pages/home';
+import LoginPage from './pages/login';
 import PostById from './pages/post-by-id';
 
 export type PageInfo = {
@@ -14,6 +15,10 @@ export const PAGES: Record<string, PageInfo> = {
   postById: {
     path: 'post/:postId',
     component: PostById
+  },
+  loginPage: {
+    path: '/login',
+    component: LoginPage,
   },
 };
 
