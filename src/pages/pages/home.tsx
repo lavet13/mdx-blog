@@ -10,34 +10,29 @@ import Post from '../../components/post';
 const Home: FC = () => {
   const path = PAGES.homePage['path'];
 
-  const [cursor, setCursor] = useState<number | null>(null);
-  const [prevCursors, setPrevCursors] = useState<(number | null)[]>([null]);
+  const [after, setAfter] = useState<number | null>(null);
+  const [before, setBefore] = useState<number | null>(null);
 
   const { data, error, isError, isPending, isFetching, isPlaceholderData } =
     usePosts({
       take: 1,
-      initialCursor: cursor,
+      initialAfter: after,
+      initialBefore: before,
     });
-  console.log({ cursor, prevCursors });
 
-  const fetchNextPage = useCallback(() => {
+  const fetchNextPage = () => {
     if (!isPlaceholderData && data?.posts.pageInfo.hasNextPage) {
-      setPrevCursors([...prevCursors, cursor]);
-      setCursor(data.posts.pageInfo.endCursor!);
+      setAfter(data.posts.pageInfo.endCursor!);
+      setBefore(null);
     }
-  }, [cursor, data, isPlaceholderData, prevCursors]);
+  };
 
-  const fetchPreviousPage = useCallback(() => {
-    if (prevCursors.length > 0) {
-      const lastCursor = prevCursors[prevCursors.length - 1];
-      if(lastCursor !== null) {
-        setCursor(lastCursor);
-        setPrevCursors(prevCursors.slice(0, -1));
-      } else {
-        setCursor(null);
-      }
+  const fetchPreviousPage = () => {
+    if (!isPlaceholderData && data?.posts.pageInfo.hasPreviousPage) {
+      setAfter(null);
+      setBefore(data.posts.pageInfo.startCursor!);
     }
-  }, [prevCursors]);
+  };
 
   if (isPending) {
     return <span>Loading...</span>;
@@ -56,10 +51,11 @@ const Home: FC = () => {
               <Post key={post.id} post={post} />
             ))}
           </SimpleGrid>
-          <button onClick={fetchPreviousPage} disabled={prevCursors[0] === undefined}>
+          <button style={{ cursor: !data.posts.pageInfo.hasPreviousPage ? 'not-allowed' : 'pointer'}} onClick={fetchPreviousPage} disabled={isPlaceholderData || !data.posts.pageInfo.hasPreviousPage}>
             Previous Page
           </button>
           <button
+            style={{cursor: !data.posts.pageInfo.hasNextPage ? 'not-allowed' : 'pointer'}}
             onClick={fetchNextPage}
             disabled={isPlaceholderData || !data.posts.pageInfo.hasNextPage}
           >

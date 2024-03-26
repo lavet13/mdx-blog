@@ -4,10 +4,11 @@ import { usePaginatedGraphQL } from '../../hooks/use-paginated-graphql';
 
 type UsePostsProps = {
   take?: number;
-  initialCursor: number | null;
+  initialBefore?: number | null;
+  initialAfter?: number | null;
 };
 
-export const usePosts = ({ take, initialCursor }: UsePostsProps) => {
+export const usePosts = ({ take, initialAfter, initialBefore }: UsePostsProps) => {
   const posts = graphql(`
     query Posts($input: PostsInput!) {
       posts(input: $input) {
@@ -19,16 +20,22 @@ export const usePosts = ({ take, initialCursor }: UsePostsProps) => {
         pageInfo {
           endCursor
           hasNextPage
+
+          startCursor
+          hasPreviousPage
         }
       }
     }
   `);
 
-  const [cursor, setCursor] = useState(initialCursor);
-
-  if (cursor !== initialCursor) {
-    setCursor(initialCursor);
+  const [after, setAfter] = useState(initialAfter);
+  const [before, setBefore] = useState(initialBefore);
+  if (after !== initialAfter) {
+    setAfter(initialAfter);
+  }
+  if (before !== initialBefore) {
+    setBefore(initialBefore);
   }
 
-  return usePaginatedGraphQL(posts, { input: { take, cursor } });
+  return usePaginatedGraphQL(posts, { input: { take, after, before } });
 };
