@@ -1,14 +1,13 @@
-import { useState } from 'react';
 import { graphql } from '../../gql';
 import { usePaginatedGraphQL } from '../../hooks/use-paginated-graphql';
 
 type UsePostsProps = {
   take?: number;
-  initialBefore?: number | null;
-  initialAfter?: number | null;
+  before?: number | null;
+  after?: number | null;
 };
 
-export const usePosts = ({ take, initialAfter, initialBefore }: UsePostsProps) => {
+export const usePosts = ({ take, after, before }: UsePostsProps) => {
   const posts = graphql(`
     query Posts($input: PostsInput!) {
       posts(input: $input) {
@@ -27,15 +26,6 @@ export const usePosts = ({ take, initialAfter, initialBefore }: UsePostsProps) =
       }
     }
   `);
-
-  const [after, setAfter] = useState(initialAfter);
-  const [before, setBefore] = useState(initialBefore);
-  if (after !== initialAfter) {
-    setAfter(initialAfter);
-  }
-  if (before !== initialBefore) {
-    setBefore(initialBefore);
-  }
 
   return usePaginatedGraphQL(posts, { input: { take, after, before } });
 };

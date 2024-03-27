@@ -1,36 +1,55 @@
 import { FC, useCallback, useEffect, useState } from 'react';
-import { Center, Heading, SimpleGrid, Box, Container } from '@chakra-ui/react';
+import { Center, Heading, SimpleGrid, Box, Container, Grid } from '@chakra-ui/react';
 import CyberButton from '../../components/cyber-button';
 import { PAGES } from '..';
 import { usePosts } from '../../features/posts/queries';
 import Section from '../../components/section';
 import Blockquote from '../../components/blockquote';
 import Post from '../../components/post';
+import { useSearchParams } from 'react-router-dom';
+import { parseIntSafe } from '../../utils/helpers/parse-int-safe';
+
 
 const Home: FC = () => {
   const path = PAGES.homePage['path'];
 
-  const [after, setAfter] = useState<number | null>(null);
-  const [before, setBefore] = useState<number | null>(null);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const before = searchParams.get('before') ?? null;
+  const after = searchParams.get('after') ?? null;
+
+  console.log({ after, before });
 
   const { data, error, isError, isPending, isFetching, isPlaceholderData } =
     usePosts({
-      take: 1,
-      initialAfter: after,
-      initialBefore: before,
+      take: 2,
+      after: parseIntSafe(after!),
+      before: parseIntSafe(before!),
     });
 
   const fetchNextPage = () => {
     if (!isPlaceholderData && data?.posts.pageInfo.hasNextPage) {
-      setAfter(data.posts.pageInfo.endCursor!);
-      setBefore(null);
+      setSearchParams(params => {
+        console.log({ params });
+        const query = new URLSearchParams(params.toString());
+
+        query.set('after', `${data.posts.pageInfo.endCursor}`);
+        query.delete('before');
+
+        return query;
+      });
     }
   };
 
   const fetchPreviousPage = () => {
     if (!isPlaceholderData && data?.posts.pageInfo.hasPreviousPage) {
-      setAfter(null);
-      setBefore(data.posts.pageInfo.startCursor!);
+      setSearchParams(params => {
+        const query = new URLSearchParams(params.toString());
+
+        query.set('before', `${data.posts.pageInfo.startCursor}`);
+        query.delete('after');
+
+        return query;
+      });
     }
   };
 
@@ -46,13 +65,14 @@ const Home: FC = () => {
     <Box>
       <Section>
         <Container maxW={'container.xl'}>
-          <SimpleGrid minChildWidth='270px' spacing={'40px'}>
+          <Grid templateColumns={'repeat(auto-fill, minmax(15rem, 1fr))'} gap={'40px'}>
             {data.posts.edges.map(post => (
               <Post key={post.id} post={post} />
             ))}
-          </SimpleGrid>
+          </Grid>
           <button style={{ cursor: !data.posts.pageInfo.hasPreviousPage ? 'not-allowed' : 'pointer'}} onClick={fetchPreviousPage} disabled={isPlaceholderData || !data.posts.pageInfo.hasPreviousPage}>
-            Previous Page
+            {isFetching ? <span>Loading...</span> : 'Previous Page'}
+
           </button>
           <button
             style={{cursor: !data.posts.pageInfo.hasNextPage ? 'not-allowed' : 'pointer'}}

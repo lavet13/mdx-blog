@@ -15,12 +15,11 @@ type PostProps = LinkBoxProps & {
   variant?: ThemeTypings['components']['Post']['variants'];
   size?: ThemeTypings['components']['Post']['sizes'];
   children?: React.ReactNode;
-  post: NonNullable<PostsQuery['posts']>[number];
+  post: NonNullable<PostsQuery['posts']['edges']>[number];
 };
 
 const Post: FC<PostProps> = ({ variant, size, post, children, ...props }) => {
   const styles = useStyleConfig('Post', { variant, size });
-  console.log({ post });
 
   return (
     <LinkBox as='article' sx={styles} {...props}>
