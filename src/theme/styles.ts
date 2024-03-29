@@ -30,14 +30,12 @@ const styles: Styles = {
       '--clip-seven':
         'polygon(0 63%, 100% 63%, 100% 80%, 95% 80%, 95% 80%, 85% 80%, 85% 80%, 8% 80%, 0 70%)',
     },
-
     '*::-webkit-scrollbar': {
       bg: 'scrollbar-bg',
     },
     '::-webkit-scrollbar-button': {
       display: 'none',
     },
-
     '::-webkit-scrollbar-track': {
       display: 'none',
     },
