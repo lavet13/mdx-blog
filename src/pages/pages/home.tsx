@@ -1,36 +1,35 @@
 import React, { FC, useCallback, useEffect, useState } from 'react';
 import {
-  Center,
-  Heading,
-  SimpleGrid,
   Box,
   Container,
   Grid,
-  Flex,
-  Spacer,
   HStack,
-  ButtonSpinner,
   Button,
+  Spinner,
+  Center,
 } from '@chakra-ui/react';
+import { Waypoint } from 'react-waypoint';
 // import CyberButton from '../../components/cyber-button';
 // import { PAGES } from '..';
 import { useInfinitePosts, usePosts } from '../../features/posts/queries';
 import Section from '../../components/section';
 import Blockquote from '../../components/blockquote';
 import Post from '../../components/post';
-import { useSearchParams } from 'react-router-dom';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { parseIntSafe } from '../../utils/helpers/parse-int-safe';
 
 const Home: FC = () => {
   // const path = PAGES.homePage['path'];
 
+  const navigate = useNavigate();
+  const location = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
   const before = searchParams.get('before') ?? null;
   const after = searchParams.get('after') ?? null;
 
   const { data, error, isError, isPending, isFetching, isPlaceholderData } =
     usePosts({
-      take: 2,
+      take: 3,
       after: parseIntSafe(after!),
       before: parseIntSafe(before!),
     });
@@ -45,6 +44,27 @@ const Home: FC = () => {
     isFetching: isFetchingInfinite,
     isFetchingNextPage,
   } = useInfinitePosts({ take: 2 });
+
+  // useEffect(() => {
+  //   if (after !== data?.posts.pageInfo.endCursor) {
+  //     fetchNextPage();
+  //   } else if (before !== data?.posts.pageInfo.startCursor) {
+  //     fetchPreviousPage();
+  //   }
+  // }, [after, before]);
+
+  useEffect(() => {
+    if (data?.posts.edges.length === 0) {
+      setSearchParams(params => {
+        const query = new URLSearchParams(params.toString());
+
+        query.delete('after');
+        query.delete('before');
+
+        return query;
+      });
+    }
+  }, [data]);
 
   const isFetchingBackwards = !!(before && isFetching);
   const isFetchingForwards = !!(after && isFetching);
@@ -90,6 +110,7 @@ const Home: FC = () => {
   if (isInfiniteError) {
     return <span>Error: {infiniteError.message}</span>;
   }
+
 
   return (
     <Box>
@@ -150,36 +171,49 @@ const Home: FC = () => {
             templateColumns={'repeat(auto-fill, minmax(15rem, 1fr))'}
             gap={'40px'}
           >
-            {infPosts.pages.map((group, i) => (
+            {infPosts.pages.map((group, i, arrGroup) => (
               <React.Fragment key={i}>
                 {group.posts.edges.map(post => (
                   <Post key={post.id} post={post} />
                 ))}
+                {i === arrGroup.length - 1 && (
+                  <Waypoint
+                    onEnter={() =>
+                      !isFetchingInfinite &&
+                      hasNextInfinitePage &&
+                      fetchNextInfinitePage()
+                    }
+                  />
+                )}
               </React.Fragment>
             ))}
           </Grid>
-          <Button
-            onClick={() =>
-              !isFetchingInfinite &&
-              hasNextInfinitePage &&
-              fetchNextInfinitePage()
-            }
-            isLoading={isFetchingNextPage}
-            style={{
-              cursor:
-                !hasNextInfinitePage || isFetchingNextPage
-                  ? 'not-allowed'
-                  : 'pointer',
-            }}
-            disabled={!hasNextInfinitePage || isFetchingNextPage}
-          >
-            {hasNextInfinitePage ? 'Load more' : 'Nothing more to load'}
-          </Button>
+          {isFetchingNextPage && (
+            <Center>
+              <Spinner />
+            </Center>
+          )}
+
+          {/* <Button */}
+          {/*   onClick={() => */}
+          {/*     !isFetchingInfinite && */}
+          {/*     hasNextInfinitePage && */}
+          {/*     fetchNextInfinitePage() */}
+          {/*   } */}
+          {/*   isLoading={isFetchingNextPage} */}
+          {/*   style={{ */}
+          {/*     cursor: */}
+          {/*       !hasNextInfinitePage || isFetchingNextPage */}
+          {/*         ? 'not-allowed' */}
+          {/*         : 'pointer', */}
+          {/*   }} */}
+          {/*   disabled={!hasNextInfinitePage || isFetchingNextPage} */}
+          {/* > */}
+          {/*   {hasNextInfinitePage ? 'Load more' : 'Nothing more to load'} */}
+          {/* </Button> */}
 
           {/* Background fetching*/}
-          <div>
-            {isFetchingInfinite && !isFetchingNextPage ? 'Refetching...' : null}
-          </div>
+          {/* <div>{isFetchingInfinite ? 'Refetching...' : null}</div> */}
         </Container>
       </Section>
 

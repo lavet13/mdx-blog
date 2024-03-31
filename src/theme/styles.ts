@@ -9,7 +9,7 @@ const $chakraColorsScrollbarBorderColor = cssVar(
 
 const styles: Styles = {
   global: _ => ({
-    html: { fontSize: { base: 'lg', sm: 'xl', '2xl': '2xl' } },
+    html: { fontSize: { base: 'lg', sm: 'xl' } },
     ':root': {
       '--shimmy-distance': '5',
       '--border': '4px',

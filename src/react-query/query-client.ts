@@ -5,8 +5,8 @@ import { persistQueryClient, removeOldestQuery } from '@tanstack/react-query-per
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 1000 * 15,
-      gcTime: 1000 * 60 * 60 * 24,
+      staleTime: 1000 * 60, // it was 15 min
+      gcTime: 1000 * 60 * 60 * 24, // garbage collected in 24 hours
       retry: 2,
     }
   },
