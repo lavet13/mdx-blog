@@ -19,7 +19,7 @@ const $sectionBg = cssVar('chakra-colors-section-bg');
 const Button = helpers.defineMultiStyleConfig({
   baseStyle: _ => {
     const transparentBgHover = alpha(`section.text`, 0.9);
-    const transparentBgActive = alpha(`section.text`, 1);
+    const transparentBgActive = `section.text`;
     const transparentBgDisabled = alpha(`section.text`, 0.1);
     const transparentTextHover = alpha(`section.bg`, 0.9);
     const transparentTextDisabled = alpha(`section.text`, 0.7);
@@ -95,16 +95,11 @@ const Button = helpers.defineMultiStyleConfig({
       tag: variantCyberTag(props),
     }),
     black: _ => {
-    // const transparentBgHover = alpha(`section.text`, 0.9);
-    // const transparentBgActive = alpha(`section.text`, 1);
-    // const transparentBgDisabled = alpha(`section.text`, 0.1);
-    // const transparentTextHover = alpha(`section.bg`, 0.9);
-    // const transparentTextDisabled = alpha(`section.text`, 0.7);
-      const transparentBgHover = alpha(`section.bg`, 0.9);
-      const transparentBgActive = alpha(`section.bg`, 1);
+      const transparentBgHover = alpha(`section.bg`, 0.95);
+      const transparentBgActive = `section.bg`;
       const transparentBgDisabled = alpha(`section.bg`, 0.1);
-      const transparentTextHover = alpha(`section.text`, 1);
-      const transparentTextDisabled = alpha(`section.bg`, 0.9);
+      const transparentTextHover = `section.text`;
+      const transparentTextDisabled = alpha(`section.bg`, 0.7);
 
       const flickerBgHex = getComputedStyle(
         document.documentElement

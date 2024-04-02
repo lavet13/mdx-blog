@@ -15,8 +15,7 @@ import { useInfinitePosts, usePosts } from '../../features/posts/queries';
 import Section from '../../components/section';
 import Blockquote from '../../components/blockquote';
 import Post from '../../components/post';
-import { Button } from '@chakra-ui/react';
-import RegularButton from '../../components/regular-button';
+import Button from '../../components/regular-button';
 
 import { useSearchParams } from 'react-router-dom';
 import { parseIntSafe } from '../../utils/helpers/parse-int-safe';
@@ -118,7 +117,7 @@ const Home: FC = () => {
             ))}
           </Grid>
           <HStack pt={3} justify={'center'} spacing={2}>
-            <RegularButton
+            <Button
               variant={'regular'}
               isLoading={isFetchingBackwards}
               style={{
@@ -134,8 +133,8 @@ const Home: FC = () => {
               }
             >
               Previous Page
-            </RegularButton>
-            <RegularButton
+            </Button>
+            <Button
               isLoading={isFetchingForwards}
               style={{
                 cursor: isFetchingForwards
@@ -148,8 +147,7 @@ const Home: FC = () => {
               disabled={isPlaceholderData || !data.posts.pageInfo.hasNextPage}
             >
               Next Page
-            </RegularButton>
-            <RegularButton isLoading>CHEGO</RegularButton>
+            </Button>
           </HStack>
         </Container>
       </Section>
@@ -158,7 +156,7 @@ const Home: FC = () => {
         <Container maxW={'container.xl'}>
           <Blockquote variant='outline-inverse'>HELP?</Blockquote>
         </Container>
-        <RegularButton variant="black">CHEGO</RegularButton>
+        <Button variant="black">CHEGO</Button>
       </Section>
 
       <Section variant='both'>
