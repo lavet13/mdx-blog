@@ -47,7 +47,6 @@ const semanticTokens = defineStyle({
       },
       text: {
         default: 'dark-blue.100',
-        _dark: 'dark-blue.100',
       },
     },
 

@@ -4,7 +4,6 @@ import {
   Container,
   Grid,
   HStack,
-  Button,
   Spinner,
   Center,
 } from '@chakra-ui/react';
@@ -12,17 +11,19 @@ import { Waypoint } from 'react-waypoint';
 // import CyberButton from '../../components/cyber-button';
 // import { PAGES } from '..';
 import { useInfinitePosts, usePosts } from '../../features/posts/queries';
+
 import Section from '../../components/section';
 import Blockquote from '../../components/blockquote';
 import Post from '../../components/post';
-import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import { Button } from '@chakra-ui/react';
+import RegularButton from '../../components/regular-button';
+
+import { useSearchParams } from 'react-router-dom';
 import { parseIntSafe } from '../../utils/helpers/parse-int-safe';
 
 const Home: FC = () => {
   // const path = PAGES.homePage['path'];
 
-  const navigate = useNavigate();
-  const location = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
   const before = searchParams.get('before') ?? null;
   const after = searchParams.get('after') ?? null;
@@ -44,14 +45,6 @@ const Home: FC = () => {
     isFetching: isFetchingInfinite,
     isFetchingNextPage,
   } = useInfinitePosts({ take: 2 });
-
-  // useEffect(() => {
-  //   if (after !== data?.posts.pageInfo.endCursor) {
-  //     fetchNextPage();
-  //   } else if (before !== data?.posts.pageInfo.startCursor) {
-  //     fetchPreviousPage();
-  //   }
-  // }, [after, before]);
 
   useEffect(() => {
     if (data?.posts.edges.length === 0) {
@@ -125,7 +118,8 @@ const Home: FC = () => {
             ))}
           </Grid>
           <HStack pt={3} justify={'center'} spacing={2}>
-            <Button
+            <RegularButton
+              variant={'regular'}
               isLoading={isFetchingBackwards}
               style={{
                 cursor: isFetchingBackwards
@@ -140,8 +134,8 @@ const Home: FC = () => {
               }
             >
               Previous Page
-            </Button>
-            <Button
+            </RegularButton>
+            <RegularButton
               isLoading={isFetchingForwards}
               style={{
                 cursor: isFetchingForwards
@@ -154,7 +148,8 @@ const Home: FC = () => {
               disabled={isPlaceholderData || !data.posts.pageInfo.hasNextPage}
             >
               Next Page
-            </Button>
+            </RegularButton>
+            <RegularButton isLoading>CHEGO</RegularButton>
           </HStack>
         </Container>
       </Section>
@@ -163,6 +158,7 @@ const Home: FC = () => {
         <Container maxW={'container.xl'}>
           <Blockquote variant='outline-inverse'>HELP?</Blockquote>
         </Container>
+        <RegularButton variant="black">CHEGO</RegularButton>
       </Section>
 
       <Section variant='both'>

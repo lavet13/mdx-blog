@@ -20,13 +20,11 @@ export const variantCyberButton: SystemStyleFunction = props => {
   }
 
   const styles = {
-    // base size
     fontSize: 25,
     fontWeight: 700,
     height: '4rem',
     minW: '14rem',
     lineHeight: '4rem',
-    // base size
 
     position: 'relative',
 
