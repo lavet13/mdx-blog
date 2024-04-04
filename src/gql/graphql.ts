@@ -131,6 +131,7 @@ export type PostPreviewArgs = {
 export type PostsInput = {
   after?: InputMaybe<Scalars['Int']['input']>;
   before?: InputMaybe<Scalars['Int']['input']>;
+  query?: InputMaybe<Scalars['String']['input']>;
   take?: InputMaybe<Scalars['Int']['input']>;
 };
 

@@ -6,6 +6,8 @@ import {
   HStack,
   Spinner,
   Center,
+  Input,
+  Heading,
 } from '@chakra-ui/react';
 import { Waypoint } from 'react-waypoint';
 // import CyberButton from '../../components/cyber-button';
@@ -24,6 +26,7 @@ const Home: FC = () => {
   // const path = PAGES.homePage['path'];
 
   const [searchParams, setSearchParams] = useSearchParams();
+  const query = searchParams.get('q') ?? '';
   const before = searchParams.get('before') ?? null;
   const after = searchParams.get('after') ?? null;
 
@@ -32,6 +35,7 @@ const Home: FC = () => {
       take: 3,
       after: parseIntSafe(after!),
       before: parseIntSafe(before!),
+      query,
     });
 
   const {
@@ -103,10 +107,29 @@ const Home: FC = () => {
     return <span>Error: {infiniteError.message}</span>;
   }
 
-
   return (
     <Box>
       <Section>
+        <Input
+          type='search'
+          value={query}
+          onChange={e =>
+            setSearchParams(params => {
+              const query = new URLSearchParams(params.toString());
+
+              if (e.target.value.trim().length !== 0) {
+                query.set('q', e.target.value);
+                query.delete('after');
+                query.delete('before');
+              } else {
+                query.delete('q');
+              }
+
+              return query;
+            })
+          }
+          placeholder='Search posts...'
+        />
         <Container maxW={'container.xl'}>
           <Grid
             templateColumns={'repeat(auto-fill, minmax(15rem, 1fr))'}
@@ -116,39 +139,42 @@ const Home: FC = () => {
               <Post key={post.id} post={post} />
             ))}
           </Grid>
-          <HStack pt={3} justify={'center'} spacing={2}>
-            <Button
-              variant={'regular'}
-              isLoading={isFetchingBackwards}
-              style={{
-                cursor: isFetchingBackwards
-                  ? 'not-allowed'
-                  : !data.posts.pageInfo.hasPreviousPage
-                  ? 'not-allowed'
-                  : 'pointer',
-              }}
-              onClick={fetchPreviousPage}
-              disabled={
-                isPlaceholderData || !data.posts.pageInfo.hasPreviousPage
-              }
-            >
-              Previous Page
-            </Button>
-            <Button
-              isLoading={isFetchingForwards}
-              style={{
-                cursor: isFetchingForwards
-                  ? 'not-allowed'
-                  : !data.posts.pageInfo.hasNextPage
-                  ? 'not-allowed'
-                  : 'pointer',
-              }}
-              onClick={fetchNextPage}
-              disabled={isPlaceholderData || !data.posts.pageInfo.hasNextPage}
-            >
-              Next Page
-            </Button>
-          </HStack>
+          {data.posts.edges.length === 0 && <Center><Heading>No posts :(</Heading></Center>}
+          {data.posts.edges.length !== 0 ? (
+            <HStack pt={3} justify={'center'} spacing={2}>
+              <Button
+                variant={'regular'}
+                isLoading={isFetchingBackwards}
+                style={{
+                  cursor: isFetchingBackwards
+                    ? 'not-allowed'
+                    : !data.posts.pageInfo.hasPreviousPage
+                    ? 'not-allowed'
+                    : 'pointer',
+                }}
+                onClick={fetchPreviousPage}
+                disabled={
+                  isPlaceholderData || !data.posts.pageInfo.hasPreviousPage
+                }
+              >
+                Previous Page
+              </Button>
+              <Button
+                isLoading={isFetchingForwards}
+                style={{
+                  cursor: isFetchingForwards
+                    ? 'not-allowed'
+                    : !data.posts.pageInfo.hasNextPage
+                    ? 'not-allowed'
+                    : 'pointer',
+                }}
+                onClick={fetchNextPage}
+                disabled={isPlaceholderData || !data.posts.pageInfo.hasNextPage}
+              >
+                Next Page
+              </Button>
+            </HStack>
+          ) : null}
         </Container>
       </Section>
 
@@ -156,7 +182,7 @@ const Home: FC = () => {
         <Container maxW={'container.xl'}>
           <Blockquote variant='outline-inverse'>HELP?</Blockquote>
         </Container>
-        <Button variant="black">CHEGO</Button>
+        <Button variant='black'>CHEGO</Button>
       </Section>
 
       <Section variant='both'>
