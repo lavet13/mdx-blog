@@ -20,15 +20,7 @@
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "noFallthroughCasesInSwitch": true,
-    "noImplicitAny": false,
-
-    "types": ["vite/client"],
-    "plugins": [
-      {
-        "name": "@0no-co/graphqlsp",
-        "schema": ""
-      }
-    ]
+    "noImplicitAny": false
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
