@@ -30,7 +30,7 @@ if (!isProduction) {
   const compression = (await import('compression')).default;
   const sirv = (await import('sirv')).default;
   app.use(compression());
-  app.use(base, sirv('./dist/client', { extensions: [] }));
+  app.use(base, sirv('./dist/client', { extensions: [], gzip: true }));
 }
 
 // Serve HTML
@@ -56,7 +56,7 @@ app.use('*', async (req, res) => {
       .replace(`<!--app-head-->`, rendered.head ?? '')
       .replace(`<!--app-html-->`, rendered.html ?? '');
 
-    res.status(200).set({ 'Content-Type': 'text/html' }).send(html);
+    res.status(200).set({ 'Content-Type': 'text/html' }).end(html);
   } catch (e) {
     vite?.ssrFixStacktrace(e);
     console.log(e.stack);

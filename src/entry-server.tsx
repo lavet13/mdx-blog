@@ -12,6 +12,7 @@ export function render(url: string) {
   const html = ReactDOMServer.renderToString(
     <React.StrictMode>
       <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+
       <StaticRouter location={url}>
         <ReactQueryProvider>
           <ChakraProvider>
@@ -24,5 +25,8 @@ export function render(url: string) {
     </React.StrictMode>
   );
 
-  return { html };
+  const head = `
+`;
+
+  return { html, head };
 }
