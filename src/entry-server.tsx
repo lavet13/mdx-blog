@@ -25,8 +25,5 @@ export function render(url: string) {
     </React.StrictMode>
   );
 
-  const head = `
-`;
-
-  return { html, head };
+  return { html };
 }
