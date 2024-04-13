@@ -13,7 +13,7 @@ export const PAGES: Record<string, PageInfo> = {
     component: Home,
   },
   postById: {
-    path: 'post/:postId',
+    path: '/post/:postId',
     component: PostById
   },
   loginPage: {

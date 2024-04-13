@@ -16,5 +16,5 @@ export const usePostById = (postId: string) => {
     }
   `);
 
-  return useGraphQL(postById, { postId } );
+  return useGraphQL(postById, {}, {}, { postId } );
 };

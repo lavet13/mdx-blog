@@ -7,6 +7,7 @@ import { ChakraProvider } from './theme/chakra-provider.tsx';
 import ReactQueryProvider from './react-query/react-query-provider.tsx';
 import { ColorModeScript } from '@chakra-ui/react';
 import theme from './theme/index.ts';
+import { AuthContextProvider } from './hooks/use-auth.tsx';
 
 ReactDOM.hydrateRoot(
   document.getElementById('root') as HTMLElement,
@@ -14,11 +15,13 @@ ReactDOM.hydrateRoot(
     <ColorModeScript initialColorMode={theme.config.initialColorMode} />
     <BrowserRouter>
       <ReactQueryProvider>
-        <ChakraProvider>
-          <MDXProvider>
-            <App />
-          </MDXProvider>
-        </ChakraProvider>
+        <AuthContextProvider>
+          <ChakraProvider>
+            <MDXProvider>
+              <App />
+            </MDXProvider>
+          </ChakraProvider>
+        </AuthContextProvider>
       </ReactQueryProvider>
     </BrowserRouter>
   </React.StrictMode>

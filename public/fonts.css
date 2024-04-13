@@ -1,0 +1,56 @@
+@font-face {
+  font-family: 'Refinery';
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url('/fonts/Refinery-25Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'BlenderPro';
+  font-display: swap;
+  font-style: normal;
+  font-weight: 500;
+
+  src: url('/fonts/BlenderProMedium.eot');
+  src: url('/fonts/BlenderProMedium.eot?#iefix') format('embedded-opentype'),
+    url('/fonts/BlenderProMedium.woff') format('woff'),
+    url('/fonts/BlenderProMedium.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'BlenderPro';
+  font-display: 'swap';
+  font-style: normal;
+  font-weight: 700;
+
+  src: url('/fonts/BlenderProBold.eot');
+  src: url('/fonts/BlenderProBold.eot?#iefix') format('embedded-opentype'),
+    url('/fonts/BlenderProBold.woff') format('woff'),
+    url('/fonts/BlenderProBold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'BlenderPro';
+  font-display: 'swap';
+  font-style: normal;
+  font-weight: 900;
+
+  src: url('/fonts/BlenderProHeavy.eot');
+  src: url('/fonts/BlenderProHeavy.eot?#iefix') format('embedded-opentype'),
+    url('/fonts/BlenderProHeavy.woff') format('woff'),
+    url('/fonts/BlenderProHeavy.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'BlenderPro';
+  font-display: 'swap';
+  font-style: normal;
+  font-weight: normal;
+
+  src: url('/fonts/BlenderProBook.eot');
+  src: url('/fonts/BlenderProBook.eot?#iefix') format('embedded-opentype'),
+    url('/fonts/BlenderProBook.woff') format('woff'),
+    url('/fonts/BlenderProBook.ttf') format('truetype');
+}
+

@@ -7,23 +7,24 @@ import { ChakraProvider } from './theme/chakra-provider.tsx';
 import ReactQueryProvider from './react-query/react-query-provider.tsx';
 import { ColorModeScript } from '@chakra-ui/react';
 import theme from './theme/index.ts';
+import { AuthContextProvider } from './hooks/use-auth.tsx';
 
 export function render(url: string) {
-  const html = ReactDOMServer.renderToString(
+  return ReactDOMServer.renderToString(
     <React.StrictMode>
       <ColorModeScript initialColorMode={theme.config.initialColorMode} />
 
       <StaticRouter location={url}>
         <ReactQueryProvider>
-          <ChakraProvider>
-            <MDXProvider>
-              <App />
-            </MDXProvider>
-          </ChakraProvider>
+          <AuthContextProvider>
+            <ChakraProvider>
+              <MDXProvider>
+                <App />
+              </MDXProvider>
+            </ChakraProvider>
+          </AuthContextProvider>
         </ReactQueryProvider>
       </StaticRouter>
     </React.StrictMode>
   );
-
-  return { html };
 }

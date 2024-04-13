@@ -1,6 +1,5 @@
 import { Styles } from '@chakra-ui/theme-tools';
 
-import './css-variables.css';
 import { cssVar } from '@chakra-ui/react';
 
 const $chakraColorsScrollbarBorderColor = cssVar(

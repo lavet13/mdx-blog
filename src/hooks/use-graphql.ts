@@ -1,9 +1,22 @@
 import request from 'graphql-request';
 import { type TypedDocumentNode } from '@graphql-typed-document-node/core';
-import { useQuery, type UseQueryResult } from '@tanstack/react-query';
+import {
+  UndefinedInitialDataOptions,
+  useQuery,
+  type UseQueryResult,
+} from '@tanstack/react-query';
+
+type UseGraphqlOptions = Omit<
+  UndefinedInitialDataOptions<any, Error, any, any[]>,
+  'queryKey' | 'queryFn'
+>;
+
+// const result = useGraphQL(myDocument, {/* options here */}, myVariables);
 
 export function useGraphQL<TResult, TVariables>(
   document: TypedDocumentNode<TResult, TVariables>,
+  variablesAndRequestHeaders: Record<string, any> = {},
+  options: UseGraphqlOptions = {},
   ...[variables]: TVariables extends Record<string, never> ? [] : [TVariables]
 ): UseQueryResult<TResult> {
   return useQuery({
@@ -12,8 +25,10 @@ export function useGraphQL<TResult, TVariables>(
       return request(
         import.meta.env.VITE_GRAPHQL_URI,
         document,
-        queryKey[1] ? queryKey[1] : undefined
+        queryKey[1] ? queryKey[1] : undefined,
+        { ...variablesAndRequestHeaders, credentials: 'include' }
       );
     },
+    ...options,
   });
 }
