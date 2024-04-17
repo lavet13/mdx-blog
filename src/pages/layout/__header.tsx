@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Outlet } from 'react-router-dom';
 
-import Navigation from './navigation';
+import Navigation from './__navigation';
 
 const Header: FC = () => {
   return (

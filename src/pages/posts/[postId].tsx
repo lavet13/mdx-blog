@@ -11,7 +11,7 @@ type PostByIdRouteParams = {
 
 const PostById: FC = () => {
   const { postId } = useParams<
-    keyof PostByIdRouteParams
+    PostByIdRouteParams
   >() as PostByIdRouteParams;
   const { data, error, isPending, isError } = usePostById(postId);
 

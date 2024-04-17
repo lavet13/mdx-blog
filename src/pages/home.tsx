@@ -12,15 +12,15 @@ import {
 import { Waypoint } from 'react-waypoint';
 // import CyberButton from '../../components/cyber-button';
 // import { PAGES } from '..';
-import { useInfinitePosts, usePosts } from '../../features/posts/queries';
+import { useInfinitePosts, usePosts } from '../features/posts/queries';
 
-import Section from '../../components/section';
-import Blockquote from '../../components/blockquote';
-import Post from '../../components/post';
-import Button from '../../components/regular-button';
+import Section from '../components/section';
+import Blockquote from '../components/blockquote';
+import Post from '../components/post';
+import Button from '../components/regular-button';
 
 import { useSearchParams } from 'react-router-dom';
-import { parseIntSafe } from '../../utils/helpers/parse-int-safe';
+import { parseIntSafe } from '../utils/helpers/parse-int-safe';
 
 const Home: FC = () => {
   // const path = PAGES.homePage['path'];
