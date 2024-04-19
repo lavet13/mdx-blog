@@ -19,11 +19,11 @@ interface ButtonProps
 const Button: FC<ButtonProps> = props => {
   const { size, variant, colorScheme } = props;
 
-  const styles = useMultiStyleConfig(`Button`, {
+  const styles = typeof window !== 'undefined' ? useMultiStyleConfig(`Button`, {
     size,
     variant,
     colorScheme,
-  });
+  }) : {};
 
   const {
     isDisabled,

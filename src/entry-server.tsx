@@ -7,7 +7,7 @@ import { ChakraProvider } from './theme/chakra-provider.tsx';
 import ReactQueryProvider from './react-query/react-query-provider.tsx';
 import { ColorModeScript } from '@chakra-ui/react';
 import theme from './theme/index.ts';
-import { AuthContextProvider } from './hooks/use-auth.tsx';
+import { AuthContextProvider } from './contexts/auth-provider.tsx';
 
 export function render(url: string) {
   return ReactDOMServer.renderToString(

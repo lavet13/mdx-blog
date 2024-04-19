@@ -15,7 +15,12 @@ export default defineConfig(({ mode }) => {
       __APP_ENV__: JSON.stringify(env.APP_ENV),
     },
     build: {
-      minify: false,
+      minify: true,
+      modulePreload: {
+        resolveDependencies: (url, deps, context) => {
+          return [];
+        },
+      },
       rollupOptions: {
         output: {
           manualChunks(id: string) {

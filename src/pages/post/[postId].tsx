@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Box, Center, Container, Heading, Text } from '@chakra-ui/react';
 import { useParams } from 'react-router-dom';
-import { usePostById } from '../../features/postById/queries';
+import { usePostById } from '../../features/postById';
 import { isGraphQLRequestError } from '../../utils/graphql/is-graphql-request-error';
 import Section from '../../components/section';
 

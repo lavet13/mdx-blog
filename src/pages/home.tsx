@@ -12,7 +12,7 @@ import {
 import { Waypoint } from 'react-waypoint';
 // import CyberButton from '../../components/cyber-button';
 // import { PAGES } from '..';
-import { useInfinitePosts, usePosts } from '../features/posts/queries';
+import { useInfinitePosts, usePosts } from '../features/posts';
 
 import Section from '../components/section';
 import Blockquote from '../components/blockquote';
@@ -72,6 +72,7 @@ const Home: FC = () => {
 
         query.set('after', `${data.posts.pageInfo.endCursor}`);
         query.delete('before');
+        query.delete('q');
 
         return query;
       });
@@ -85,6 +86,7 @@ const Home: FC = () => {
 
         query.set('before', `${data.posts.pageInfo.startCursor}`);
         query.delete('after');
+        query.delete('q');
 
         return query;
       });

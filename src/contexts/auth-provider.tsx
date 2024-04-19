@@ -1,5 +1,5 @@
 import { FC, PropsWithChildren, createContext, useContext } from 'react';
-import { useGetMe } from '../features/me/queries';
+import { useGetMe } from '../features/auth';
 
 type AuthContextDefaultValue = {};
 

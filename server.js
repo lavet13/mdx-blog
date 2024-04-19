@@ -61,7 +61,7 @@ async function createServer(
     const compression = (await import('compression')).default;
     const sirv = (await import('sirv')).default;
     app.use(compression());
-    app.use(BASE, sirv('./dist/client', { extensions: [], gzip: false }));
+    app.use(BASE, sirv('./dist/client', { extensions: [], gzip: true }));
   }
 
   const stylesheets = getStyleSheets();

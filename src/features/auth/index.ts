@@ -1,5 +1,5 @@
 import { graphql } from '../../gql';
-import { useGraphQL } from '../../hooks/use-graphql';
+import { useGraphQL } from '../../hooks/use-graphql-query';
 
 export const useGetMe = () => {
   const me = graphql(`

@@ -1,6 +1,6 @@
 import { graphql } from '../../gql';
-import { useGraphQL } from '../../hooks/use-graphql';
-import { useInfiniteGraphQL } from '../../hooks/use-infinite-graphql';
+import { useGraphQL } from '../../hooks/use-graphql-query';
+import { useInfiniteGraphQL } from '../../hooks/use-infinite-graphql-query';
 import { keepPreviousData } from '@tanstack/react-query';
 
 type UseInfinitePostsProps = {
