@@ -15,19 +15,23 @@ type UseGraphqlOptions = Omit<
 
 export function useGraphQL<TResult, TVariables>(
   document: TypedDocumentNode<TResult, TVariables>,
-  variablesAndRequestHeaders: Record<string, any> = {},
+  requestHeaders: Record<string, any> = {},
   options: UseGraphqlOptions = {},
   ...[variables]: TVariables extends Record<string, never> ? [] : [TVariables]
 ): UseQueryResult<TResult> {
   return useQuery({
     queryKey: [(document.definitions[0] as any).name.value, variables],
     queryFn: async ({ queryKey }) => {
-      return request(
-        import.meta.env.VITE_GRAPHQL_URI,
+      return request({
+        url: import.meta.env.VITE_GRAPHQL_URI,
         document,
-        queryKey[1] ? queryKey[1] : undefined,
-        { ...variablesAndRequestHeaders, credentials: 'include' }
-      );
+        variables: queryKey[1] ? queryKey[1] : undefined,
+        requestHeaders: {
+          ...requestHeaders,
+          credentials: 'include',
+          mode: 'cors',
+        },
+      });
     },
     ...options,
   });

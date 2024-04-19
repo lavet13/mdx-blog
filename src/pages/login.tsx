@@ -6,6 +6,10 @@ import { ObjectSchema, string, object } from 'yup';
 import { Persist } from '../components/persist-form';
 import TextInput from '../components/text-input';
 import useIsClient from '../utils/ssr/use-is-client';
+import { Container } from '@chakra-ui/react';
+import { useLogin } from '../features/auth';
+import { LoginInput } from '../gql/graphql';
+import { useMutation } from '@tanstack/react-query';
 
 type InitialValues = {
   login: string;
@@ -27,36 +31,47 @@ const initialValues: InitialValues = {
   password: '',
 };
 
-const handleSubmit: HandleSubmitProps = async (values, actions) => {
-  console.warn(JSON.stringify(values, null, 2));
-
-  actions.setSubmitting(false);
-  actions.resetForm();
-};
-
 const LoginPage: FC = () => {
   const { isClient, key } = useIsClient();
+  const { mutate: loginUser } = useLogin();
+
+  const handleSubmit: HandleSubmitProps = async (values, actions) => {
+    loginUser({ loginInput: values });
+
+    actions.setSubmitting(false);
+    actions.resetForm();
+  };
 
   return (
-    <Formik
-      initialValues={initialValues}
-      onSubmit={handleSubmit}
-      validationSchema={validationSchema}
-    >
-      {({ isSubmitting }) => {
-        return (
-          <Form>
-            <TextInput variant="unstyled" name='login' label='Логин' />
-            <TextInput variant="unstyled" name='password' label='Пароль' />
-            {isClient && <Button key={key} variant={'black'} isLoading={isSubmitting} mt='4' type="submit">
-              Отправить
-            </Button>}
+    <Container>
+      <Formik
+        initialValues={initialValues}
+        onSubmit={handleSubmit}
+        validationSchema={validationSchema}
+      >
+        {({ isSubmitting }) => {
+          return (
+            <Form>
+              <TextInput shouldFocus name='login' label='Логин' />
+              <TextInput name='password' label='Пароль' />
+              {isClient && (
+                <Button
+                  key={key}
+                  variant={'black'}
+                  isLoading={isSubmitting}
+                  mt='4'
+                  type='submit'
+                >
+                  Отправить
+                </Button>
+              )}
 
-            <Persist name='login-form' />
-          </Form>
-        );
-      }}
-    </Formik>
+              <Persist name='login-form' />
+            </Form>
+          );
+        }}
+      </Formik>
+    </Container>
   );
 };
 
