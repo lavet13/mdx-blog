@@ -10,8 +10,7 @@ import {
   Heading,
 } from '@chakra-ui/react';
 import { Waypoint } from 'react-waypoint';
-// import CyberButton from '../../components/cyber-button';
-// import { PAGES } from '..';
+// import CyberButton from '../components/cyber-button';
 import { useInfinitePosts, usePosts } from '../features/posts';
 
 import Section from '../components/section';
@@ -23,8 +22,6 @@ import { useSearchParams } from 'react-router-dom';
 import { parseIntSafe } from '../utils/helpers/parse-int-safe';
 
 const Home: FC = () => {
-  // const path = PAGES.homePage['path'];
-
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get('q') ?? '';
   const before = searchParams.get('before') ?? null;

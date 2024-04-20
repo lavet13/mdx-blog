@@ -1,4 +1,3 @@
-import request from 'graphql-request';
 import { type TypedDocumentNode } from '@graphql-typed-document-node/core';
 import {
   InfiniteData,
@@ -10,6 +9,8 @@ type InfiniteGraphqlOptions = Omit<
   DefinedInitialDataInfiniteOptions<any, Error, any, any[], {}>,
   'queryKey' | 'queryFn' | 'initialData'
 >;
+
+import client from '../graphql-request/client';
 
 export function useInfiniteGraphQL<TResult, TVariables>(
   document: TypedDocumentNode<TResult, TVariables>,
@@ -29,7 +30,8 @@ export function useInfiniteGraphQL<TResult, TVariables>(
       const variables = queryKey[1]
         ? { input: { ...queryKey[1].input, ...pageParam } }
         : undefined;
-      return request(import.meta.env.VITE_GRAPHQL_URI, document, variables);
+
+      return client.request(document, variables);
     },
     ...options,
   });

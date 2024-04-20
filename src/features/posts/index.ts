@@ -85,5 +85,5 @@ export const usePosts = ({ take, after, before, query }: UsePostsProps) => {
     }
   `);
 
-  return useGraphQL(posts, {}, { placeholderData: keepPreviousData }, { input });
+  return useGraphQL(posts, undefined, { placeholderData: keepPreviousData }, { input });
 };

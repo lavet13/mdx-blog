@@ -1,4 +1,3 @@
-import request, { Variables } from 'graphql-request';
 import { type TypedDocumentNode } from '@graphql-typed-document-node/core';
 import {
   useMutation,
@@ -10,22 +9,19 @@ type UseMutationOptions<TVariables, TContext, TResult> = Omit<
   'mutationFn'
 >;
 
+import client from '../graphql-request/client';
+
 export function useGraphQLMutation<TResult, TVariables>(
   document: TypedDocumentNode<TResult, TVariables>,
   requestHeaders: Record<string, any> = {},
   options: UseMutationOptions<TVariables, unknown, TResult> = {}
 ) {
   return useMutation<TResult, unknown, TVariables, unknown>({
-    mutationFn: async (variables?: TVariables) => {
-      return request({
-        url: import.meta.env.VITE_GRAPHQL_URI,
+    mutationFn: async (variables: TVariables | undefined) => {
+      return client.request({
         document,
-        variables: variables as Variables | undefined,
-        requestHeaders: {
-          ...requestHeaders,
-          credentials: `include`,
-          mode: `cors`,
-        },
+        variables: variables || undefined ,
+        requestHeaders,
       });
     },
     ...options,

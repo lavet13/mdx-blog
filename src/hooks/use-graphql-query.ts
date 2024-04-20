@@ -1,4 +1,3 @@
-import request from 'graphql-request';
 import { type TypedDocumentNode } from '@graphql-typed-document-node/core';
 import {
   UndefinedInitialDataOptions,
@@ -11,7 +10,7 @@ type UseGraphqlOptions = Omit<
   'queryKey' | 'queryFn'
 >;
 
-// const result = useGraphQL(myDocument, {/* options here */}, myVariables);
+import client from '../graphql-request/client';
 
 export function useGraphQL<TResult, TVariables>(
   document: TypedDocumentNode<TResult, TVariables>,
@@ -22,15 +21,10 @@ export function useGraphQL<TResult, TVariables>(
   return useQuery({
     queryKey: [(document.definitions[0] as any).name.value, variables],
     queryFn: async ({ queryKey }) => {
-      return request({
-        url: import.meta.env.VITE_GRAPHQL_URI,
+      return client.request({
         document,
         variables: queryKey[1] ? queryKey[1] : undefined,
-        requestHeaders: {
-          ...requestHeaders,
-          credentials: 'include',
-          mode: 'cors',
-        },
+        requestHeaders,
       });
     },
     ...options,
