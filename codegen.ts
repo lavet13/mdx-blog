@@ -2,12 +2,17 @@ import { CodegenConfig } from '@graphql-codegen/cli';
 
 const config: CodegenConfig = {
   schema: process.env.VITE_GRAPHQL_URI,
-  documents: ['./src/**/*.{tsx,ts}', '!src/gql/**/*'],
-  ignoreNoDocuments: true,
+  documents: ['./src/**/*.graphql'],
   generates: {
-    './src/gql/': {
-      preset: 'client',
-      plugins: [],
+    './src/generated-graphql/index.ts': {
+      plugins: [
+        'typescript',
+        'typescript-operations',
+        'typescript-react-query',
+      ],
+      config: {
+        fetcher: 'graphql-request',
+      },
     },
   },
 };

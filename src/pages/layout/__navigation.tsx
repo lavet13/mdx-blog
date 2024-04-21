@@ -18,7 +18,7 @@ const Navigation: FC = () => {
     logoutMutation,
     undefined,
     {
-      onSuccess: (data) => {
+      onSuccess: () => {
         queryClient.setQueryData(['Me', null], null);
       },
     }
@@ -34,7 +34,7 @@ const Navigation: FC = () => {
           <NavLink to='/login'>Log In</NavLink>
         ) : (
           <NavLink as='button' onClick={() => {
-            logout();
+            logout(undefined);
           }}>
             Logout
           </NavLink>

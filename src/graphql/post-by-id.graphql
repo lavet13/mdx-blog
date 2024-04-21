@@ -1,0 +1,11 @@
+query PostById($postId: ID!) {
+  postById(postId: $postId) {
+    id
+    title
+    content
+    categories {
+      id
+      name
+    }
+  }
+}

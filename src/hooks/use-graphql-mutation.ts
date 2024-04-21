@@ -4,23 +4,28 @@ import {
   type UseMutationOptions as ReactQueryUseMutationOptions,
 } from '@tanstack/react-query';
 
+import client from '../graphql-request/client';
+import { Exact } from '../gql/graphql';
+
 type UseMutationOptions<TVariables, TContext, TResult> = Omit<
   ReactQueryUseMutationOptions<TResult, unknown, TVariables, TContext>,
   'mutationFn'
 >;
 
-import client from '../graphql-request/client';
+type Variables<TVariables> = TVariables extends Exact<{ [key: string]: never }>
+  ? any
+  : TVariables;
 
 export function useGraphQLMutation<TResult, TVariables>(
-  document: TypedDocumentNode<TResult, TVariables>,
+  document: TypedDocumentNode<TResult, Variables<TVariables>>,
   requestHeaders: Record<string, any> = {},
-  options: UseMutationOptions<TVariables, unknown, TResult> = {}
+  options: UseMutationOptions<Variables<TVariables>, unknown, TResult> = {}
 ) {
-  return useMutation<TResult, unknown, TVariables, unknown>({
-    mutationFn: async (variables: TVariables | undefined) => {
+  return useMutation<TResult, unknown, Variables<TVariables>, unknown>({
+    mutationFn: async (variables?: Variables<TVariables>) => {
       return client.request({
         document,
-        variables: variables || undefined ,
+        variables: variables || undefined,
         requestHeaders,
       });
     },
