@@ -9,6 +9,7 @@ const config: CodegenConfig = {
         'typescript',
         'typescript-operations',
         'typescript-react-query',
+        'typed-document-node',
       ],
       config: {
         fetcher: 'graphql-request',
