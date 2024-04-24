@@ -7,19 +7,19 @@ import {
 import client from '../graphql-request/client';
 import { Exact } from '../gql/graphql';
 
-type UseMutationOptions<TVariables, TContext, TResult> = Omit<
+export type Variables<TVariables> = TVariables extends Exact<{ [key: string]: never }>
+  ? any
+  : TVariables;
+
+export type UseMutationOptions<TVariables, TContext, TResult> = Omit<
   ReactQueryUseMutationOptions<TResult, unknown, TVariables, TContext>,
   'mutationFn'
 >;
 
-type Variables<TVariables> = TVariables extends Exact<{ [key: string]: never }>
-  ? any
-  : TVariables;
-
 export function useGraphQLMutation<TResult, TVariables>(
   document: TypedDocumentNode<TResult, Variables<TVariables>>,
-  requestHeaders: Record<string, any> = {},
-  options: UseMutationOptions<Variables<TVariables>, unknown, TResult> = {}
+  requestHeaders?: Record<string, any>,
+  options?: UseMutationOptions<Variables<TVariables>, unknown, TResult>
 ) {
   return useMutation<TResult, unknown, Variables<TVariables>, unknown>({
     mutationFn: async (variables?: Variables<TVariables>) => {

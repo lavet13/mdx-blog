@@ -1,7 +1,7 @@
 import { graphql } from '../../gql';
-import { useGraphQL } from '../../hooks/use-graphql-query';
+import { UseQueryOptions, useGraphQL } from '../../hooks/use-graphql-query';
 
-export const usePostById = (postId: string) => {
+export const usePostById = (postId: string, options?: UseQueryOptions) => {
   const postById = graphql(`
     query PostById($postId: ID!) {
       postById(postId: $postId) {
@@ -16,5 +16,5 @@ export const usePostById = (postId: string) => {
     }
   `);
 
-  return useGraphQL(postById, undefined, undefined, { postId } );
+  return useGraphQL(postById, undefined, options, { postId } );
 };

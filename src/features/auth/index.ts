@@ -1,9 +1,18 @@
-import { useNavigate } from 'react-router-dom';
 import { graphql } from '../../gql';
-import { useGraphQLMutation } from '../../hooks/use-graphql-mutation';
-import { useGraphQL } from '../../hooks/use-graphql-query';
+import {
+  UseMutationOptions,
+  Variables,
+  useGraphQLMutation,
+} from '../../hooks/use-graphql-mutation';
+import { UseQueryOptions, useGraphQL } from '../../hooks/use-graphql-query';
+import {
+  LoginMutation,
+  LoginMutationVariables,
+  LogoutMutation,
+  LogoutMutationVariables,
+} from '../../gql/graphql';
 
-export const useGetMe = () => {
+export const useGetMe = (options?: UseQueryOptions) => {
   const me = graphql(`
     query Me {
       me {
@@ -19,12 +28,17 @@ export const useGetMe = () => {
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     refetchOnReconnect: false,
+    ...options,
   });
 };
 
-export const useLogin = () => {
-  const navigate = useNavigate();
-
+export const useLogin = (
+  options?: UseMutationOptions<
+    Variables<LoginMutationVariables>,
+    unknown,
+    LoginMutation
+  >
+) => {
   const login = graphql(`
     mutation Login($loginInput: LoginInput!) {
       login(loginInput: $loginInput) {
@@ -34,8 +48,22 @@ export const useLogin = () => {
   `);
 
   return useGraphQLMutation(login, undefined, {
-    onSuccess: () => {
-      navigate('/');
-    },
+    ...options,
   });
+};
+
+export const useLogout = (
+  options?: UseMutationOptions<
+    Variables<LogoutMutationVariables>,
+    unknown,
+    LogoutMutation
+  >
+) => {
+  const logoutMutation = graphql(`
+    mutation Logout {
+      logout
+    }
+  `);
+
+  return useGraphQLMutation(logoutMutation, undefined, options);
 };

@@ -1,13 +1,19 @@
 import { graphql } from '../../gql';
-import { useGraphQL } from '../../hooks/use-graphql-query';
-import { useInfiniteGraphQL } from '../../hooks/use-infinite-graphql-query';
+import { UseQueryOptions, useGraphQL } from '../../hooks/use-graphql-query';
+import {
+  useInfiniteGraphQL,
+  UseInfiniteQueryOptions,
+} from '../../hooks/use-infinite-graphql-query';
 import { keepPreviousData } from '@tanstack/react-query';
 
 type UseInfinitePostsProps = {
   take?: number;
 };
 
-export const useInfinitePosts = ({ take = 10 }: UseInfinitePostsProps) => {
+export const useInfinitePosts = (
+  { take = 10 }: UseInfinitePostsProps,
+  options?: UseInfiniteQueryOptions
+) => {
   const posts = graphql(`
     query Posts($input: PostsInput!) {
       posts(input: $input) {
@@ -29,6 +35,7 @@ export const useInfinitePosts = ({ take = 10 }: UseInfinitePostsProps) => {
 
   return useInfiniteGraphQL(
     posts,
+    undefined,
     {
       getNextPageParam: (lastPage: any) => {
         return lastPage.posts.pageInfo.hasNextPage
@@ -36,6 +43,7 @@ export const useInfinitePosts = ({ take = 10 }: UseInfinitePostsProps) => {
           : undefined;
       },
       initialPageParam: { after: null },
+      ...options,
     },
     { input: { take } }
   );
@@ -48,7 +56,10 @@ type UsePostsProps = {
   query?: string;
 };
 
-export const usePosts = ({ take, after, before, query }: UsePostsProps) => {
+export const usePosts = (
+  { take, after, before, query }: UsePostsProps,
+  options?: UseQueryOptions
+) => {
   const input: Record<string, any> = {};
   console.log({ before, after });
 
@@ -85,5 +96,10 @@ export const usePosts = ({ take, after, before, query }: UsePostsProps) => {
     }
   `);
 
-  return useGraphQL(posts, undefined, { placeholderData: keepPreviousData }, { input });
+  return useGraphQL(
+    posts,
+    undefined,
+    { placeholderData: keepPreviousData, ...options },
+    { input }
+  );
 };

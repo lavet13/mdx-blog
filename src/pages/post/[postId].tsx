@@ -13,7 +13,9 @@ const PostById: FC = () => {
   const { postId } = useParams<
     PostByIdRouteParams
   >() as PostByIdRouteParams;
-  const { data, error, isPending, isError } = usePostById(postId);
+  const { data, error, isPending, isError } = usePostById(postId, {
+    retry: 1,
+  });
 
   console.log({ error });
 

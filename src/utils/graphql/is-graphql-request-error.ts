@@ -2,6 +2,8 @@ import { GraphQLError } from 'graphql';
 
 // only if we get error
 interface GraphQLRequestError {
+  stack?: string;
+  message?: string;
   response: {
     errors: GraphQLError[];
     data: null;

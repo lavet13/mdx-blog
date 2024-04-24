@@ -5,7 +5,7 @@ import {
   DefinedInitialDataInfiniteOptions,
 } from '@tanstack/react-query';
 
-type InfiniteGraphqlOptions = Omit<
+export type UseInfiniteQueryOptions = Omit<
   DefinedInitialDataInfiniteOptions<any, Error, any, any[], {}>,
   'queryKey' | 'queryFn' | 'initialData'
 >;
@@ -14,7 +14,8 @@ import client from '../graphql-request/client';
 
 export function useInfiniteGraphQL<TResult, TVariables>(
   document: TypedDocumentNode<TResult, TVariables>,
-  options: InfiniteGraphqlOptions,
+  requestHeaders: Record<string, any> = {},
+  options: UseInfiniteQueryOptions,
   ...[variables]: TVariables extends Record<string, never> ? [] : [TVariables]
 ) {
   return useInfiniteQuery<
@@ -31,7 +32,7 @@ export function useInfiniteGraphQL<TResult, TVariables>(
         ? { input: { ...queryKey[1].input, ...pageParam } }
         : undefined;
 
-      return client.request(document, variables);
+      return client.request(document, variables, requestHeaders);
     },
     ...options,
   });
