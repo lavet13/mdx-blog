@@ -21,6 +21,7 @@ export function useGraphQL<TResult, TVariables>(
   return useQuery({
     queryKey: [(document.definitions[0] as any).name.value, variables],
     queryFn: async ({ queryKey }) => {
+      console.log({ queryKey });
       return client.request({
         document,
         variables: queryKey[1] ? queryKey[1] : undefined,

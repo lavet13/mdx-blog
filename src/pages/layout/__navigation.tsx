@@ -104,7 +104,7 @@ const Navigation: FC = () => {
           <NavLink
             as='button'
             onClick={() => {
-              logout(undefined);
+              logout();
             }}
           >
             Logout

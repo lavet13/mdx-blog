@@ -11,6 +11,8 @@
 - Bidirectional infinite scrolling
 
 ## Incomplete:
+- Query Key Factory
+- Dynamic Imports, lazy loading in react
 - MDX
 - File upload(graphql?? express??)
 - First mutation
