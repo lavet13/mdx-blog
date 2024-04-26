@@ -30,6 +30,7 @@
     "formik": "^2.4.5",
     "framer-motion": "^11.0.5",
     "graphql": "^16.8.1",
+    "graphql-codegen-react-query": "^1.0.18",
     "graphql-request": "^6.1.0",
     "immer": "^10.0.3",
     "lodash": "^4.17.21",

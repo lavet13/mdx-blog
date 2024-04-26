@@ -1,7 +1,6 @@
 import { graphql } from '../../gql';
 import {
   UseMutationOptions,
-  Variables,
   useGraphQLMutation,
 } from '../../hooks/use-graphql-mutation';
 import { UseQueryOptions, useGraphQL } from '../../hooks/use-graphql-query';
@@ -34,7 +33,7 @@ export const useGetMe = (options?: UseQueryOptions) => {
 
 export const useLogin = (
   options?: UseMutationOptions<
-    Variables<LoginMutationVariables>,
+    LoginMutationVariables,
     unknown,
     LoginMutation
   >
@@ -54,7 +53,7 @@ export const useLogin = (
 
 export const useLogout = (
   options?: UseMutationOptions<
-    Variables<LogoutMutationVariables>,
+    LogoutMutationVariables,
     unknown,
     LogoutMutation
   >

@@ -16,19 +16,11 @@ const Navigation: FC = () => {
     isRefetching,
   } = useGetMe({ retry: false });
 
-  useEffect(() => {
-    if (isError && isGraphQLRequestError(error)) {
-      toast({
-        title: 'Account',
-        description: error.response.errors[0].message,
-        status: 'error',
-        duration: 2000,
-        isClosable: true,
-      });
-    }
-  }, [isError]);
-
-  const { mutate: logout } = useLogout({
+  const {
+    mutate: logout,
+    error: logoutError,
+    isError: logoutIsError,
+  } = useLogout({
     onSuccess: () => {
       queryClient.setQueryData(['Me', null], null);
       toast({
@@ -54,6 +46,49 @@ const Navigation: FC = () => {
       }
     },
   });
+
+  useEffect(() => {
+    console.log('effect fired!');
+    if (isError) {
+      if (isGraphQLRequestError(error)) {
+        toast({
+          title: 'Account',
+          description: error.response.errors[0].message,
+          status: 'error',
+          duration: 4000,
+          isClosable: true,
+        });
+      } else if (error instanceof Error) {
+        toast({
+          title: 'Account',
+          description: `${error.message} (╯‵□′)╯︵┻━┻`,
+          status: 'error',
+          duration: 4000,
+          isClosable: true,
+        });
+      }
+    }
+
+    if (logoutIsError) {
+      if (isGraphQLRequestError(logoutError)) {
+        toast({
+          title: 'Logout',
+          description: logoutError.response.errors[0].message,
+          status: 'error',
+          duration: 2000,
+          isClosable: true,
+        });
+      } else if (logoutError instanceof Error) {
+        toast({
+          title: 'Logout',
+          description: `${logoutError.message} (╯‵□′)╯︵┻━┻`,
+          status: 'error',
+          duration: 2000,
+          isClosable: true,
+        });
+      }
+    }
+  }, [isError, logoutIsError, logoutError, error]);
 
   return (
     <>
