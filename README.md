@@ -11,6 +11,7 @@
 - Bidirectional infinite scrolling
 
 ## Incomplete:
+- Vite-plugin-node
 - Query Key Factory
 - Dynamic Imports, lazy loading in react
 - MDX
